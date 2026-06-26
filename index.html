@@ -1,23 +1,798 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "2026년 개인사업자 주택담보대출의 평균 한도와 LTV 기준은 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2026년 개인사업자 주택담보대출의 LTV 한도는 금융권 및 규제 지역 여부에 따라 상이하지만, 가계대출 DSR 규제를 우회할 수 있는 사업자 자금의 특성상 일반적으로 시세의 70%에서 최대 80% 후반대까지 책정됩니다. 평균적인 금리는 신용점수 및 담보물의 가치에 따라 연 4% 중반에서 7%대 사이에서 형성됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "개인사업자 주택담보대출 시 가계대출과 가장 큰 차이점은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "가장 큰 차이점은 DSR 규제 적용 여부입니다. 가계대출은 차주 단위 DSR 규제가 엄격히 적용되어 소득 대비 대출 한도가 크게 제한되지만, 개인사업자가 운영 자금 목적으로 신청하는 주택담보대출은 DSR 규제 대신 RTI(이자상환비율) 및 각 금융회사의 사업성 평가 기준을 적용받으므로 소득 대비 더 높은 한도 승인이 가능합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "실제 개인사업을 영위하지 않는 휴폐업 상태나 신규 사업자도 대출 가입이 가능한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "신규 사업자등록을 마친 직후라도 실제 사업을 영위하고 있음을 증명하는 서류(매출 발생 증빙 또는 사업장 임대차계약서, 사업 계획서 등)를 제출하면 신청이 가능합니다. 다만, 실질적인 매출이 없는 상태이거나 일시적인 대출 목적의 위장 사업자(페이퍼 컴퍼니)로 판단될 경우 사후 점검 및 모니터링을 통해 대출금 회수 및 금융 거래 제한 등의 불이익을 받을 수 있으므로 유의해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "인터넷이나 모바일 다이렉트 앱을 통한 한도 조회 시 신용점수 하락 우려가 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "단순 가조회는 신용점수에 전혀 영향을 주지 않습니다. 핀테크 플랫폼이나 제1금융권 및 제2금융권 다이렉트 온라인 채널을 통한 예상 한도 및 금리 조회는 신용평가사에 단순 조회 기록으로만 분류되므로 안심하고 비교 견적을 진행하셔도 무방합니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #1A3C5A; /* 차분한 네이비 */
+            --secondary-color: #2D6A4F; /* 신뢰감을 주는 딥 그린 */
+            --accent-color: #D9534F; /* 경고 및 포인트 컬러 */
+            --bg-light: #F4F6F9; /* 부드러운 밝은 그레이 */
+            --bg-card: #FFFFFF;
+            --text-main: #2B2D42; /* 시인성이 높은 진한 그레이 */
+            --text-muted: #6C757D;
+            --border-color: #DDE2E5;
+            --success-color: #40916C;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            box-sizing: border-box;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 24px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 히어로 영역 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #102A43 100%);
+            color: #FFFFFF;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 1.25em;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 메인 콘텐츠 배치 */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 카드 컴포넌트 */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            box-sizing: border-box;
+        }
+
+        .card h2 {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 24px;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card h3 {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        /* 실시간 계산기 위젯 */
+        .calculator-box {
+            background-color: #EBF5EE;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .calculator-box h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .calc-btn {
+            background-color: var(--secondary-color);
+            color: #FFFFFF;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calc-btn:hover {
+            background-color: #1B4D3E;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .result-item strong {
+            color: var(--primary-color);
+        }
+
+        /* 사이드바 상담 신청 폼 */
+        .sidebar-sticky {
+            position: sticky;
+            top: 100px;
+        }
+
+        .consult-form {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .consult-form h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .consult-form p {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #C13D39;
+        }
+
+        /* 테이블 스타일 */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+
+        /* 링크 스타일 */
+        .out-link {
+            color: var(--secondary-color);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .out-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* FAQ 스타일 */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .faq-item h4 {
+            margin: 0;
+            font-size: 1.15em;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item h4::after {
+            content: "+";
+            font-size: 1.4em;
+            color: var(--text-muted);
+        }
+
+        .faq-item.active h4::after {
+            content: "-";
+        }
+
+        .faq-item p {
+            display: none;
+            margin-top: 15px;
+            color: var(--text-main);
+            font-size: 1em;
+        }
+
+        .faq-item.active p {
+            display: block;
+        }
+
+        /* 키워드 클라우드 스타일 */
+        .keyword-box {
+            background-color: #ECEFEF;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .keyword-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .keyword-list li {
+            background-color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        /* 외부 참고 사이트 영역 */
+        .reference-box {
+            background-color: #EAEFF5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .reference-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .reference-list {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .reference-list li {
+            margin-bottom: 8px;
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="#">개인사업자주택담보대출 전문 분석 센터</a></h1>
+            <nav>
+                <a href="#section1">규제 정보</a>
+                <a href="#section2">한도 계산기</a>
+                <a href="#section3">금융권 비교</a>
+                <a href="#section4">자주 묻는 질문</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-layout">
+            
+            <!-- 왼쪽 주요 콘텐츠 영역 -->
+            <section class="content-area">
+                
+                <div class="card" id="section1">
+                    <h2>2026년 개인사업자주택담보대출 규제 완화 및 시장 트렌드</h2>
+                    <p>
+                        2026년 들어 금융당국은 자영업자 및 개인 소상공인의 자금 조달 여건을 개선하기 위해 개인사업자주택담보대출 부문의 규제 체계를 유연하게 개편하고 있습니다. 가계대출에 적용되는 차주 단위 DSR 규제가 엄격히 적용되는 상황에서, 개인사업자가 가계 목적이 아닌 기업 운영 자금 마련을 목적으로 실행하는 대출은 가계 대출 한도 규제망을 우회할 수 있어 한도 극대화를 원하는 사업자들에게 가장 유용한 자금 확보 수단으로 자리잡고 있습니다.
+                    </p>
+                    <p>
+                        많은 자영업자들이 네이버나 구글을 비롯한 주요 포털 및 유튜브에서 이자상환비율 및 감정가 산출 방식과 같은 핵심 정보를 검색합니다. 금융 기관들은 사업 소득의 실질성을 검증하기 위해 국세청의 소득금액증명원, 부가가치세과세표준증명 등의 공식 서류 검증을 고도화하고 있습니다. 이러한 복잡한 대출 규제와 복잡성 속에서 실수 없이 최상의 금리 조건을 확인하려면 다각도의 한도 산출 및 비교 분석이 선행되어야 합니다.
+                    </p>
+                    
+                    <div class="keyword-box">
+                        <h4>함께 많이 찾는 금융 키워드 카테고리</h4>
+                        <ul class="keyword-list">
+                            <li>#개인사업자주택담보대출</li>
+                            <li>#사업자아파트담보대출</li>
+                            <li>#LTV한도계산기</li>
+                            <li>#자영업자금융대출</li>
+                            <li>#신규사업자한도</li>
+                            <li>#DSR규제우회</li>
+                            <li>#제2금융권대출금리</li>
+                            <li>#저축은행사업자한도</li>
+                            <li>#주담대갈아타기</li>
+                            <li>#소상공인정부지원금</li>
+                            <li>#사업운영자금견적</li>
+                            <li>#무설정담보대출</li>
+                            <li>#내돈내산대출후기</li>
+                            <li>#디시인사이드자영업자대출</li>
+                            <li>#토스대출비교서비스</li>
+                            <li>#카카오뱅크다이렉트론</li>
+                        </ul>
+                    </div>
+
+                    <h3>가계 주담대와 개인사업자 주담대의 구조적 차이점</h3>
+                    <p>
+                        주택담보대출을 이용하려는 차주들이 겪는 가장 큰 장벽은 단연 DSR(총부채원리금상환비율) 규제입니다. 일반 가계 담보 대출의 경우 차주의 연간 소득에서 차지하는 총 금융 부채의 원리금 상환 비율이 철저하게 40% 내외로 통제되지만, 개인사업자 명의로 신청하는 주택담보대출은 기업 자금으로 분류되어 이 DSR의 직접적인 제약을 비껴갑니다. 대신 대출을 취급하는 금융기관은 대출 대상 주택의 감정가(KB시세 또는 외부 감정평가액)에 근거한 LTV 한도와 사업체의 업종별 경기 상황 및 추정 연매출을 바탕으로 대출 적격 여부를 정교하게 심사합니다.
+                    </p>
+                    <p>
+                        이 때문에 현재 매출이 높은 요식업, 제조업, 물류업 등의 자영업자는 물론이고, 최근 개업하여 사업 개시 연차가 얼마 되지 않은 신규 가입 사업자도 본인의 신용 점수와 부동산 가치를 활용해 보다 여유로운 금액의 한도를 산출해낼 수 있습니다.
+                    </p>
+                </div>
+
+                <!-- 인터랙티브 실시간 한도 계산기 위젯 -->
+                <div class="card" id="section2">
+                    <h2>개인사업자 주담대 예상 한도 및 월 상환 비용 계산기</h2>
+                    <p>
+                        본인의 주택 시세 정보와 기대출 현황을 대략적으로 입력하여 실제 조달 가능한 예상 한도금액 및 적용 금리에 따른 이자 비용을 편리하게 가계산할 수 있는 어플리케이션형 간이 계산기입니다.
+                    </p>
+                    
+                    <div class="calculator-box">
+                        <h3>실시간 예상 한도 및 월 이자 계산기</h3>
+                        
+                        <div class="form-group">
+                            <label for="calc_house_val">대상 부동산 KB 시세 또는 감정 예상가 (만원 단위)</label>
+                            <input type="number" id="calc_house_val" placeholder="예: 50000 (5억 원)" value="60000" oninput="calculateMortgage()">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc_biz_type">현재 영위 중인 사업자 유형 종류</label>
+                            <select id="calc_biz_type" onchange="calculateMortgage()">
+                                <option value="general">일반 도소매/유통업 (최대 LTV 80% 내외)</option>
+                                <option value="service">음식점/뷰티/서비스업 (최대 LTV 85% 내외)</option>
+                                <option value="manufacturing">제조/물류/기타 기술업 (최대 LTV 85% 내외)</option>
+                                <option value="new">신규 사업자등록 (최대 LTV 75% 내외)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc_existing">동일 주택 내 선순위 기대출 금액 (만원 단위, 없을 경우 0 입력)</label>
+                            <input type="number" id="calc_existing" placeholder="예: 15000 (1억 5천만 원)" value="0" oninput="calculateMortgage()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc_rate">적용 예상 연 금리 (%)</label>
+                            <input type="number" step="0.01" id="calc_rate" placeholder="예: 4.8" value="4.8" oninput="calculateMortgage()">
+                        </div>
+
+                        <button type="button" class="calc-btn" onclick="calculateMortgage()">상세 결과 실시간 산출하기</button>
+
+                        <div class="result-box">
+                            <div class="result-item">
+                                <span>해당 자산 평가 한도 비율(LTV):</span>
+                                <strong id="res_ltv">80%</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>이론상 산출되는 대출 가능 한도 금액:</span>
+                                <strong id="res_max_limit">48,000 만원</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>선순위 차감 후 실 수령 가능금액:</span>
+                                <strong id="res_net_amount" style="color: var(--accent-color);">48,000 만원</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>매월 납부하게 될 예상 이자액 (만기일시 기준):</span>
+                                <strong id="res_monthly_interest">1,920,000 원</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-muted" style="font-size: 0.9em; text-align: center;">
+                        위 산출 결과는 단순 참고용 시뮬레이션입니다. 본인의 실질적인 개인 소득과 신용 점수, 거주 지역 규제 현황에 따라 변동 폭이 크기 때문에, 전문 상담사와의 연계를 통한 정식 감정평가 및 가조회 진단이 필요합니다.
+                    </p>
+                </div>
+
+                <div class="card" id="section3">
+                    <h2>금융권별 장단점 비교 분석 및 정밀 매트릭스</h2>
+                    <p>
+                        주택담보대출을 진행하려는 개인사업자는 단순히 금리 수치 하나에만 치중해서는 안 됩니다. 1금융권 메이저 은행과 2금융권 특화 캐피탈, 상호금융기관들은 각각 장단점과 수수료 부과 구조가 확연하게 다르기 때문에 본인의 목적과 재무 상황에 부합하는 업체를 찾는 전략적 비교가 절대적으로 요구됩니다.
+                    </p>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>구분</th>
+                                    <th>적용 가능 한도 (LTV)</th>
+                                    <th>평균 예상 금리 범위</th>
+                                    <th>주요 장점 요인</th>
+                                    <th>주요 제한 및 단점</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>시중 은행 (제1금융권)</strong></td>
+                                    <td>시세 대비 60%에서 최대 70%선</td>
+                                    <td>연 3.8% ~ 5.2% 내외</td>
+                                    <td>금리가 가장 안정적이고 저렴하며 중도상환수수료 할인 혜택이 우수함</td>
+                                    <td>사업자 적격성 증빙 및 매출 기준 요건 심사가 매우 까다로움</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>상호금융 (신협/새마을금고)</strong></td>
+                                    <td>시세 대비 70%에서 최대 80%선</td>
+                                    <td>연 4.5% ~ 6.5% 내외</td>
+                                    <td>각 조합별 지점 재량 우대 혜택 적용 가능, 감정평가액 우호적 산출 가능</td>
+                                    <td>예산 조기 소진 가능성이 상존하고 지점마다 자금 집행 기준이 상이함</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>저축은행 및 캐피탈 (제2금융권)</strong></td>
+                                    <td>시세 대비 최대 85% ~ 90%</td>
+                                    <td>연 5.8% ~ 8.9% 내외</td>
+                                    <td>신규 혹은 일시적 매출 부족 사업자도 주택 가치가 높을 시 최고 한도 승인</td>
+                                    <td>금리 비용 부담이 높은 편이며 원리금 상환 계획 수립 미흡 시 리스크 가중</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>대출 비교 분석 시 간과하기 쉬운 3대 핵심 점검 요소</h3>
+                    <p>
+                        첫째, 연간 부가 비용과 중도상환수수료 규정입니다. 일반적으로 주택담보대출은 대출 취급일로부터 3년 이내에 자금을 상환할 시 남은 금액에 대해 통상 1.2%에서 2.0%에 달하는 중도상환수수료를 부과합니다. 단기간 운영 자금의 융통 후 즉각적인 대출금 일시 상환 계획이 있는 개인사업자라면 중도상환수수료 면제 옵션이나 일할 계산 적용 기준을 최우선으로 검증해야 손실을 면할 수 있습니다.
+                    </p>
+                    <p>
+                        둘째, 등기 비용과 인지세 등의 부대 금액 지출입니다. 일정한 대출 거래 계약 시 체결 금액에 따라 법무사 수수료와 근저당권 설정비, 국가에 납부하는 인지세가 공동으로 납부됩니다. 이는 대출 실행 한도 금액에 따라 수십만 원에서 백만 원 단위 이상의 초기 수수료를 발생시킬 수 있으므로 3년 약정 가입 전 자금 유동성을 계산할 때 사전에 공제되는 지출 예산에 산입해 두는 것이 상식적입니다.
+                    </p>
+                    <p>
+                        셋째, 부적절한 다이렉트 중개 수수료 요구나 사은품 및 불법적 지원금 사기 수법에 대한 주의입니다. 적법한 금융감독원 정식 등록 중개사 또는 각 저축은행 브랜드 제휴사에서는 가입 거래의 주체인 차주로부터 어떠한 수수료나 보수, 컨설팅 비용도 직접 수취하지 않도록 법으로 보장하고 있습니다. 불법적으로 수수료나 사은권, 과도한 현금지원을 유인책으로 유혹하는 인터넷 웹사이트나 온라인 광고는 무조건 배제하여야 피해를 예방할 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2>온라인 플랫폼과 AI 기술을 통한 비대면 금리 비교 노하우</h2>
+                    <p>
+                        과거에는 각 지역별 금융 기관 영업점을 직접 내방하여 대기하는 비효율을 겪었지만, 현대 금융 시장에서는 토스, 네이버파이낸셜 등의 혁신 금융 플랫폼 앱을 이용하여 전국 은행과 저축은행의 조건들을 단 몇 번의 터치만으로 정교하게 비교할 수 있는 환경이 무상으로 구비되어 있습니다. 
+                    </p>
+                    <p>
+                        또한, 최근에는 제미나이(Gemini) 및 챗지피티(ChatGPT)와 같은 고성능 대형 언어 모델 AI 기술을 활용하여 복잡하고 어려운 금융 관련 특별 조항이나 우대 금리 요구조건 서류들을 쉽게 요약하고 최적의 사업자 금융 상담 동선을 추천받는 자영업 금융 차주들이 늘어가는 흐름입니다.
+                    </p>
+                    <p>
+                        특히 여러 자영업자가 정보를 교환하는 보배드림, 펨코, 에펨코리아, 디시인사이드 같은 대형 커뮤니티의 내돈내산 대출 심사 통과 후기를 참고하여 본인의 실제 신용 평가 상태 및 소득 수준과 가장 흡사한 승인 사례의 실시간 수치를 찾아 분석해 보는 작업도 합리적인 대출 결정을 실현하기 위해 권고되는 단계입니다.
+                    </p>
+                </div>
+
+                <div class="card" id="section4">
+                    <h2>개인사업자주택담보대출 자주 묻는 질문 (FAQ)</h2>
+                    
+                    <div class="faq-item">
+                        <h4>Q1. 현재 1주택 상태인데 소유 주택의 세입자가 있어도 대출 계약 진행이 될까요?</h4>
+                        <p>
+                            소유 담보 주택에 기존 임차인이 전세나 월세 계약을 통해 입주해 있는 경우라면 해당 임대차 보증금 금액은 후순위 한도를 평가할 때 반드시 공제해야 하는 원천적인 차감 항목입니다. 다만, 후순위 담보 대출 방식을 활용해 기존 임차보증금을 보전하면서 추가 가용 한도의 산출을 시도해 볼 수 있으나 금리가 다소 상향 조정될 수 있으므로 정밀한 주택 시세 및 선순위 보증금 금액을 기초로 하여 산출해 보아야 합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Q2. 대출 실행 후 사업체를 폐업하거나 부도가 나면 기존 주택대출이 중도 회수되나요?</h4>
+                        <p>
+                            사업자대출은 기업 자금 명목으로 차입이 승인된 금융 상품이기 때문에 금융사는 대출의 만기 기간 동안 불시 점검이나 만기 연장 심사 때 사업자등록증 유지 여부 및 국세/지방세 완납 상태를 수시로 조회합니다. 정식 휴폐업 조치가 내려지면 자금의 성격이 일반 가계담보대출로 변환 적용되어 기한의 이익 상실을 유발해 만기 이전일지라도 일시 상환을 통지받거나 다음 약정 연장 심사 시 전액 반려 등의 리스크가 생길 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Q3. 신용 평점이 낮은 불량 자영업자도 2금융권이나 캐피탈에서 승인이 납니까?</h4>
+                        <p>
+                            나이스(NICE)나 올크레딧(KCB) 신용점수가 평균 하한선 이하여도 대상 주택의 실거래 가격 및 환금성이 높은 주요 요충지 부동산(서울, 수도권, 광역시 요지)인 경우, 제2금융권 저축은행의 심사 기준을 통해 최대 한도의 가승인이 도출되는 예가 비교적 많습니다. 다만 금융 연체 기록이 고착화되어 있거나 법적 압류 절차가 걸려 있다면 정상적인 금융 심사가 불허하므로 사전에 압류 해지 및 단기 부실 부채의 정리가 완료되어야 합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4>Q4. 대출 가조회 후 마음에 들지 않아 거절할 시에 금융 불이익이나 패널티가 가해집니까?</h4>
+                        <p>
+                            가입 전 진행하는 한도 가능여부 가조회는 법적으로 어떤 거래 계약의 효력도 나타내지 않습니다. 금리 조회를 여러 개 기관에 무작위로 여러 차례 넣는 가조회 행위도 단기 과다 조회를 유발하여 일부 민간 금융사 정밀 심사에서 예외적 거부 조건으로 작동할 수 있지만, 정식 계약서 조인 전에 단순 변심 등으로 거래를 백지화하거나 거부하여도 등기 수수료가 발생하지 않은 시점이라면 취소 수수료 같은 패널티는 청구되지 않습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 공인 외부 참고 링크 박스 -->
+                <div class="reference-box">
+                    <h4>신뢰성 있는 금융정보 참고 처 및 공인 사이트 안내</h4>
+                    <p>
+                        개인사업자주택담보대출 진행 시 관련 금융 규제 정책과 대출 이용 권익을 정식으로 보호받기 위해서는 신뢰할 수 있는 기관의 정보와 지침을 필히 확인해야 합니다. 아래는 금융 유관 및 공인 기관들의 누리집 리스트입니다.
+                    </p>
+                    <ul class="reference-list">
+                        <li>
+                            <a href="https://namu.wiki/w/%EC%A3%BC%ED%83%9D%EB%8B%B4%EB%B3%B4%EB%8C%80%EC%B6%9C" class="out-link" target="_blank" rel="noopener">
+                                나무위키 주택담보대출 백과사전 항목
+                            </a> - 담보 대출의 일반 상식과 과거 금융 시장 역사를 한눈에 수록한 오픈 백과입니다.
+                        </li>
+                        <li>
+                            <a href="https://www.fsc.go.kr" class="out-link" target="_blank" rel="noopener">
+                                대한민국 금융위원회 (FSC) 공식 누리집
+                            </a> - LTV 및 DSR 규제 한도 조정을 의결 및 고시하는 최고 의사결정 정부 부처입니다.
+                        </li>
+                        <li>
+                            <a href="https://www.fss.or.kr" class="out-link" target="_blank" rel="noopener">
+                                금융감독원 (FSS) 금융소비자 정보포털 파인
+                            </a> - 불법 금융 광고 대처와 정식 금융회사 제휴 여부를 즉각 조회할 수 있는 국민 포털입니다.
+                        </li>
+                        <li>
+                            <a href="https://www.gov.kr" class="out-link" target="_blank" rel="noopener">
+                                정부24 행정민원 통합 서비스 포털
+                            </a> - 사업자등록증명, 소득금액증명 등 주담대 서류 발급이 즉시 가능한 정부 누리집입니다.
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+            
+            <!-- 오른쪽 상담 신청 사이드바 영역 -->
+            <aside class="sidebar-area">
+                <div class="sidebar-sticky">
+                    <div class="consult-form">
+                        <h3>실시간 비대면 금리 및 한도 가견적 상담</h3>
+                        <p>
+                            금융위원회 정식 등록 대출 중개 상담사를 통해 개인사업자 우대 혜택을 즉각 분석하여 안내합니다.
+                        </p>
+                        
+                        <form action="#" method="post" onsubmit="alert('가상 테스트 양식입니다. 실제 데이터 전송은 발생하지 않습니다.'); return false;">
+                            <div class="form-group">
+                                <label for="form_name">차주 성명 (실명 기재)</label>
+                                <input type="text" id="form_name" placeholder="홍길동" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form_tel">연락처 및 전화번호</label>
+                                <input type="tel" id="form_tel" placeholder="010-1234-5678" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form_addr">담보 소유지 부동산 소재지 주소</label>
+                                <input type="text" id="form_addr" placeholder="예: 경기도 성남시 분당구 삼평동" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form_biz_num">사업자등록번호 (신규 발급 및 유효성 확인)</label>
+                                <input type="text" id="form_biz_num" placeholder="000-00-00000">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form_req_amt">필요 대출 금액 (만원 단위)</label>
+                                <input type="number" id="form_req_amt" placeholder="예: 30000 (3억 원)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" required checked> 개인정보 수집 및 제3자 제공 동의 (필수 항목)
+                                </label>
+                            </div>
+
+                            <button type="submit" class="submit-btn">최우대 조건 즉시 진단 요청</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+            
+        </div>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 토글 스크립트
+        document.querySelectorAll('.faq-item h4').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+
+        // 실시간 한도 계산 로직
+        function calculateMortgage() {
+            const houseVal = parseFloat(document.getElementById('calc_house_val').value) || 0;
+            const bizType = document.getElementById('calc_biz_type').value;
+            const existing = parseFloat(document.getElementById('calc_existing').value) || 0;
+            const rate = parseFloat(document.getElementById('calc_rate').value) || 4.8;
+
+            let ltvPercent = 80;
+            if (bizType === 'general') {
+                ltvPercent = 80;
+            } else if (bizType === 'service' || bizType === 'manufacturing') {
+                ltvPercent = 85;
+            } else if (bizType === 'new') {
+                ltvPercent = 75;
+            }
+
+            const maxLimit = houseVal * (ltvPercent / 100);
+            const netAmount = Math.max(0, maxLimit - existing);
+            const monthlyInterest = (netAmount * (rate / 100)) / 12 * 10000;
+
+            document.getElementById('res_ltv').innerText = ltvPercent + '%';
+            document.getElementById('res_max_limit').innerText = Math.round(maxLimit).toLocaleString() + ' 만원';
+            document.getElementById('res_net_amount').innerText = Math.round(netAmount).toLocaleString() + ' 만원';
+            document.getElementById('res_monthly_interest').innerText = Math.round(monthlyInterest).toLocaleString() + ' 원';
+        }
+
+        // 초기 화면 구동 시 자동 한도 산정 적용
+        window.onload = function() {
+            calculateMortgage();
+        };
+    </script>
+  
